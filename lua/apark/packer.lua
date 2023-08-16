@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
   }
 
   use { "bluz71/vim-moonfly-colors", as = "moonfly", config = function()
-	vim.cmd('colorscheme moonfly')
+      vim.cmd('colorscheme moonfly')
   end}
 
   -- Post-install/update hook with neovim command
@@ -42,10 +42,17 @@ return require('packer').startup(function(use)
 		  {'hrsh7th/cmp-nvim-lsp'},
 		  {'hrsh7th/cmp-nvim-lua'},
 
-		  -- Snippets
-		  {'L3MON4D3/LuaSnip'},
-		  {'rafamadriz/friendly-snippets'},
-	  }
+          -- Snippets
+          {'L3MON4D3/LuaSnip'},
+          {'rafamadriz/friendly-snippets'},
+      }
+  }
+
+  use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
+
+  use {
+      "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
   }
 end)
 
