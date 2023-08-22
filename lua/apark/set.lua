@@ -28,5 +28,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg=0, bg='#2a2a2a'})
 vim.opt.colorcolumn = "80"
 
