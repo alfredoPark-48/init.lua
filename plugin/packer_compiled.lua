@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    config = { "\27LJ\2\0025\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0" },
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -83,6 +89,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-calc"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-calc",
+    url = "https://github.com/hrsh7th/cmp-calc"
+  },
+  ["cmp-emoji"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-emoji",
+    url = "https://github.com/hrsh7th/cmp-emoji"
+  },
+  ["cmp-look"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-look",
+    url = "https://github.com/octaltree/cmp-look"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -94,10 +115,20 @@ _G.packer_plugins = {
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
     url = "https://github.com/hrsh7th/cmp-nvim-lua"
   },
+  ["cmp-nvim-ultisnips"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-nvim-ultisnips",
+    url = "https://github.com/quangnguyen30192/cmp-nvim-ultisnips"
+  },
   ["cmp-path"] = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  ["cmp-spell"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/cmp-spell",
+    url = "https://github.com/f3fora/cmp-spell"
   },
   cmp_luasnip = {
     loaded = true,
@@ -113,6 +144,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
     url = "https://github.com/f-person/git-blame.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    config = { "\27LJ\2\0026\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
   },
   harpoon = {
     loaded = true,
@@ -133,12 +170,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
-  },
-  moonfly = {
-    config = { "\27LJ\2\0027\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0\24colorscheme moonfly\bcmd\bvim\0" },
-    loaded = true,
-    path = "/home/apark/.local/share/nvim/site/pack/packer/start/moonfly",
-    url = "https://github.com/bluz71/vim-moonfly-colors"
   },
   ["neoscroll.nvim"] = {
     loaded = true,
@@ -161,10 +192,25 @@ _G.packer_plugins = {
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/nvim-tree/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/apark/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
+  ["onedarkpro.nvim"] = {
+    loaded = true,
+    path = "/home/apark/.local/share/nvim/site/pack/packer/start/onedarkpro.nvim",
+    url = "https://github.com/olimorris/onedarkpro.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -204,14 +250,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: Comment.nvim
+time([[Config for Comment.nvim]], true)
+try_loadstring("\27LJ\2\0025\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fComment\frequire\0", "config", "Comment.nvim")
+time([[Config for Comment.nvim]], false)
 -- Config for: nvim-autopairs
 time([[Config for nvim-autopairs]], true)
 try_loadstring("\27LJ\2\2@\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
 time([[Config for nvim-autopairs]], false)
--- Config for: moonfly
-time([[Config for moonfly]], true)
-try_loadstring("\27LJ\2\0027\0\0\2\0\3\0\0056\0\0\0009\0\1\0'\1\2\0B\0\2\1K\0\1\0\24colorscheme moonfly\bcmd\bvim\0", "config", "moonfly")
-time([[Config for moonfly]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\2\0026\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

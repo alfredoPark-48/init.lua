@@ -14,5 +14,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-
+vim.opt.clipboard = "unnamedplus"
+vim.cmd('set clipboard=unnamedplus')
+vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true })
 
