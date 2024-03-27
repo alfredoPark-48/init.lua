@@ -7,6 +7,11 @@ require("conform").setup({
         javascript = { { "prettierd", "prettier" } },
         c = { "clang-format" } -- Assuming you have clang-format installed
     },
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_fallback = true,
+    },
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -14,14 +19,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function(args)
         require("conform").format({ bufnr = args.buf })
     end,
-})
-
-require("conform").setup({
-    format_on_save = {
-        -- These options will be passed to conform.format()
-        timeout_ms = 500,
-        lsp_fallback = true,
-    },
 })
 
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
