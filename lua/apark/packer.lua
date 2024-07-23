@@ -62,6 +62,7 @@ return require('packer').startup(function(use)
   use 'karb94/neoscroll.nvim'
 
   -- Autocompletion
+  use 'SirVer/ultisnips'
   use {
     "hrsh7th/nvim-cmp",
     requires = {
@@ -79,7 +80,7 @@ return require('packer').startup(function(use)
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
-      'nvim-tree/nvim-web-devicons',       -- optional
+      'nvim-tree/nvim-web-devicons', -- optional
     },
   }
 
@@ -103,5 +104,57 @@ return require('packer').startup(function(use)
       require("conform").setup()
       vim.cmd('autocmd BufWritePre * lua require("conform").format()')
     end,
+  })
+
+  -- Error lens
+  use 'folke/trouble.nvim'
+
+  -- Copilot
+  use "github/copilot.vim"
+
+  -- CopilotChat
+  use { "CopilotC-Nvim/CopilotChat.nvim", config = function() require("CopilotChat").setup() end }
+
+  -- CopilotC-Nvim and dependencies
+  use {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    requires = {
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
+    },
+    config = function()
+      require('copilot').setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+      require('CopilotChat').setup({
+        debug = true,
+        mappings = {
+          complete = {
+            insert = '',
+          },
+        },
+      })
+      if pcall(require, 'cmp') then
+        require("CopilotChat.integrations.cmp").setup()
+      end
+    end
+  }
+
+  -- Markdown preview
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
+
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function()
+      vim.g.mkdp_filetypes = {
+        "markdown" }
+    end,
+    ft = { "markdown" },
   })
 end)
