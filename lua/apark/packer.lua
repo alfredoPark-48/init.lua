@@ -24,14 +24,14 @@ return require('packer').startup(function(use)
   -- Fugitive
   use 'tpope/vim-fugitive'
 
-  -- LSP
+  -- LSP Zero for easier setup of LSP
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
     requires = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' },
-      -- Mason
+      -- Mason (LSP installer)
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
 
@@ -48,6 +48,35 @@ return require('packer').startup(function(use)
       { 'rafamadriz/friendly-snippets' },
     }
   }
+
+  -- Ensure the correct LSP servers are installed via Mason
+  require('mason-lspconfig').setup({
+    ensure_installed = {
+      "typescript-language-server", -- Correct for TypeScript
+      "lua_ls",                     -- Lua
+      "pyright",                    -- Python
+      "gopls",                      -- Go
+      "rust_analyzer",              -- Rust
+      "html",                       -- HTML
+      "cssls",                      -- CSS
+      -- Add other language servers you need
+    }
+  })
+
+  -- Setup LSP with lspconfig
+  local lsp = require('lsp-zero')
+
+  lsp.preset('recommended')
+
+  lsp.ensure_installed({
+    'lua_ls',        -- Lua
+    'pyright',       -- Python
+    'rust_analyzer', -- Rust
+    'html',          -- HTML
+    'cssls'          -- CSS
+  })
+
+  lsp.setup()
 
   -- Autopairs
   use {
@@ -76,19 +105,6 @@ return require('packer').startup(function(use)
   -- One Dark Pro
   use "olimorris/onedarkpro.nvim"
 
-  --- Nvim Tree
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional
-    },
-  }
-
-  -- Git signs
-  use { "lewis6991/gitsigns.nvim",
-    config = function() require('gitsigns').setup() end
-  }
-
   -- Comment
   use {
     'numToStr/Comment.nvim',
@@ -107,40 +123,19 @@ return require('packer').startup(function(use)
   })
 
   -- Error lens
-  use 'folke/trouble.nvim'
+  use {
+    "folke/trouble.nvim",
+    cmd = "Trouble", -- Load on the command
+    config = function()
+      require("trouble").setup({})
+    end
+  }
+
+  -- Web icons
+  use 'nvim-tree/nvim-web-devicons'
 
   -- Copilot
   use "github/copilot.vim"
-
-  -- CopilotChat
-  use { "CopilotC-Nvim/CopilotChat.nvim", config = function() require("CopilotChat").setup() end }
-
-  -- CopilotC-Nvim and dependencies
-  use {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
-    requires = {
-      { "zbirenbaum/copilot.lua" },
-      { "nvim-lua/plenary.nvim" },
-    },
-    config = function()
-      require('copilot').setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-      require('CopilotChat').setup({
-        debug = true,
-        mappings = {
-          complete = {
-            insert = '',
-          },
-        },
-      })
-      if pcall(require, 'cmp') then
-        require("CopilotChat.integrations.cmp").setup()
-      end
-    end
-  }
 
   -- Markdown preview
   use({
@@ -152,8 +147,7 @@ return require('packer').startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
     setup = function()
-      vim.g.mkdp_filetypes = {
-        "markdown" }
+      vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
   })
