@@ -134,15 +134,21 @@ return require('packer').startup(function(use)
   -- Web icons
   use 'nvim-tree/nvim-web-devicons'
 
-  -- Copilot
-  use "github/copilot.vim"
+  -- Windsurf
+  use {
+    'Exafunction/windsurf.vim',
+    config = function()
+      -- Change '<C-g>' here to any keycode you like.
+      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+        { expr = true, silent = true })
+      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+        { expr = true, silent = true })
+      vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+    end
+  }
 
   -- Markdown preview
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
-
   use({
     "iamcco/markdown-preview.nvim",
     run = "cd app && npm install",
