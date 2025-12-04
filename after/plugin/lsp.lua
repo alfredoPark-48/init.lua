@@ -1,54 +1,6 @@
-local lsp = require("lsp-zero")
+local lsp_zero = require('lsp-zero')
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-  'rust_analyzer',
-  'eslint',
-  'lua_ls',
-  'clangd',
-  'jdtls',
-  'jsonls',
-  'cssls',
-  'html',
-  'marksman',
-  'jedi_language_server',
-  'tailwindcss',
-  'bashls',
-  'arduino_language_server'
-})
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
-})
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-lsp.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -63,8 +15,80 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-lsp.setup()
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  ensure_installed = {
+    'rust_analyzer',
+    'eslint',
+    'lua_ls',
+    'clangd',
+    'jdtls',
+    'jsonls',
+    'cssls',
+    'html',
+    'marksman',
+    'jedi_language_server',
+    'tailwindcss',
+    'bashls',
+    'arduino_language_server'
+  },
+  handlers = {
+    lsp_zero.default_setup,
+    lua_ls = function()
+      require('lspconfig').lua_ls.setup(lsp_zero.nvim_lua_ls())
+    end,
+  },
+})
+
+-- SIMPLE cmp configuration without lsp_zero formatting
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+cmp.setup({
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = {
+    {name = 'nvim_lsp'},
+    {name = 'luasnip'},
+    {name = 'buffer'},
+    {name = 'path'},
+  },
+  formatting = {
+    fields = {'abbr', 'kind', 'menu'},
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = '[LSP]',
+        luasnip = '[Snippet]',
+        buffer = '[Buffer]',
+        path = '[Path]',
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+})
+
+lsp_zero.set_preferences({
+  suggest_lsp_servers = false,
+  sign_icons = {
+    error = 'E',
+    warn = 'W',
+    hint = 'H',
+    info = 'I'
+  }
+})
+
+lsp_zero.setup()
 
 vim.diagnostic.config({
-    virtual_text = true
+  virtual_text = true
 })

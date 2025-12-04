@@ -7,7 +7,6 @@ return require('packer').startup(function(use)
   -- Telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.2',
-    -- or                            , branch = '0.1.x',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
@@ -26,58 +25,28 @@ return require('packer').startup(function(use)
 
   -- LSP Zero for easier setup of LSP
   use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
-    requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      -- Mason (LSP installer)
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
-    }
+  'VonHeikemen/lsp-zero.nvim',
+  branch = 'v3.x', -- Change from v1.x to v3.x
+  requires = {
+    -- LSP Support
+    { 'neovim/nvim-lspconfig' },
+    -- Mason
+    { 'williamboman/mason.nvim' },
+    { 'williamboman/mason-lspconfig.nvim' },
+    
+    -- Autocompletion
+    { 'hrsh7th/nvim-cmp' },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-buffer' },
+    { 'hrsh7th/cmp-path' },
+    { 'saadparwaiz1/cmp_luasnip' },
+    { 'hrsh7th/cmp-nvim-lua' },
+    
+    -- Snippets
+    { 'L3MON4D3/LuaSnip' },
+    { 'rafamadriz/friendly-snippets' },
   }
-
-  -- Ensure the correct LSP servers are installed via Mason
-  require('mason-lspconfig').setup({
-    ensure_installed = {
-      "typescript-language-server", -- Correct for TypeScript
-      "lua_ls",                     -- Lua
-      "pyright",                    -- Python
-      "gopls",                      -- Go
-      "rust_analyzer",              -- Rust
-      "html",                       -- HTML
-      "cssls",                      -- CSS
-      -- Add other language servers you need
-    }
-  })
-
-  -- Setup LSP with lspconfig
-  local lsp = require('lsp-zero')
-
-  lsp.preset('recommended')
-
-  lsp.ensure_installed({
-    'lua_ls',        -- Lua
-    'pyright',       -- Python
-    'rust_analyzer', -- Rust
-    'html',          -- HTML
-    'cssls'          -- CSS
-  })
-
-  lsp.setup()
-
+}
   -- Autopairs
   use {
     "windwp/nvim-autopairs",
@@ -118,14 +87,12 @@ return require('packer').startup(function(use)
     "stevearc/conform.nvim",
     config = function()
       require("conform").setup()
-      vim.cmd('autocmd BufWritePre * lua require("conform").format()')
     end,
   })
 
   -- Error lens
   use {
     "folke/trouble.nvim",
-    cmd = "Trouble", -- Load on the command
     config = function()
       require("trouble").setup({})
     end
@@ -134,11 +101,10 @@ return require('packer').startup(function(use)
   -- Web icons
   use 'nvim-tree/nvim-web-devicons'
 
-  -- Windsurf
+  -- Windsurf (Codeium)
   use {
-    'Exafunction/windsurf.vim',
+    'Exafunction/codeium.vim', 
     config = function()
-      -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
       vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
         { expr = true, silent = true })
