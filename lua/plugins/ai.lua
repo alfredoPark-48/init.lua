@@ -1,5 +1,5 @@
 return {
-  -- 1. GitHub Copilot (Ghost text inline completions)
+  -- 1. GitHub Copilot Engine (Fast inline ghost text completions as you type)
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -8,12 +8,12 @@ return {
       require("copilot").setup({
         suggestion = {
           enabled = true,
-          auto_trigger = true, -- Suggest text immediately as you type
+          auto_trigger = true,
           debounce = 75,
           keymap = {
-            accept = "<M-l>", -- Press Option + l to accept completion (Mac Alt/Option key)
-            accept_word = "<M-w>",
-            accept_line = "<M-A-l>",
+            accept = "<M-l>",        -- Option + l (macOS) / Alt + l (Linux) to accept completion
+            accept_word = "<M-w>",   -- Option + w (macOS) / Alt + w (Linux) to accept next word
+            accept_line = "<M-A-l>", -- Option + Shift + l (macOS) / Alt + Shift + l (Linux) for full line
             next = "<M-]>",
             prev = "<M-[>",
             dismiss = "<C-]>",
@@ -24,31 +24,28 @@ return {
     end,
   },
 
-  -- 2. CodeCompanion (The UI interface for Gemini chat/editing)
+  -- 2. CodeCompanion (Configured to use Local Qwen via Ollama)
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "hrsh7th/nvim-cmp",              -- Optional: for completion inside the chat buffer
-      "nvim-telescope/telescope.nvim", -- Optional: for searching through prompts
     },
     config = function()
       require("codecompanion").setup({
         strategies = {
           chat = {
-            adapter = "gemini",
+            adapter = "ollama", -- Point chat mechanics to your local machine
           },
           inline = {
-            adapter = "gemini",
+            adapter = "ollama", -- Point inline refactoring changes to your local machine
           },
         },
         adapters = {
-          gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
+          ollama = function()
+            return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = {
-                  default = "gemini-2.5-flash", -- Quick, accurate, and cheap/free
+                  default = "", -- Tell it to run your active local download
                 },
               },
             })
@@ -56,10 +53,10 @@ return {
         },
       })
 
-      -- Keymaps for Chat and AI actions
-      vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionToggle<cr>", { desc = "Toggle AI Chat" })
-      vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { desc = "AI Actions Menu" })
-      vim.keymap.set("v", "<leader>ce", "<cmd>CodeCompanionChat Add<cr>", { desc = "Add selected text to AI Chat" })
+      -- Core UI Actions and Controls
+      vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "Toggle AI Chat Window" })
+      vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeCompanionActions<cr>", { desc = "AI Context Actions Menu" })
+      vim.keymap.set("v", "<leader>ce", "<cmd>CodeCompanionChat Add<cr>", { desc = "Send selection to Local Chat" })
     end,
   }
 }
