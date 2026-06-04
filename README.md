@@ -79,7 +79,6 @@ Your plugins are organized modularly under `lua/plugins/`. Here is what each fil
 *   **[trouble.nvim](https://github.com/folke/trouble.nvim)**: Prettified summary lists for compilation errors, LSP diagnostics, and quickfix lists.
 *   **[nvim-autopairs](https://github.com/windwp/nvim-autopairs)**: Automatically inserts closing brackets, quotes, and braces.
 *   **[Comment.nvim](https://github.com/numToStr/Comment.nvim)**: Modern commenting support.
-*   **[neoscroll.nvim](https://github.com/karb94/neoscroll.nvim)**: Smooth pixel-scrolling animations.
 *   **[markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)**: Renders live markdown pages in your browser.
 
 ### 🐙 Git Integration (`lua/plugins/git.lua`)
@@ -104,6 +103,8 @@ Your Leader key is configured to `<Space>`.
 | `K` | Visual | Move highlighted block up |
 | `<C-d>` | Normal | Scroll half page down and center cursor |
 | `<C-u>` | Normal | Scroll half page up and center cursor |
+| `<C-f>` | Normal | Scroll full page down and center cursor |
+| `<C-b>` | Normal | Scroll full page up and center cursor |
 | `n` | Normal | Jump to next search result (centered) |
 | `N` | Normal | Jump to previous search result (centered) |
 | `<Esc>` | Normal | Clear active search highlighting |

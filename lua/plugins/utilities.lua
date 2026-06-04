@@ -22,19 +22,13 @@ return {
     cmd = "Trouble",
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-      { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>xq", "<cmd>Trouble qflist toggle<cr>",      desc = "Quickfix List (Trouble)" },
     },
     opts = {},
   },
 
-  -- Neoscroll: Smooth pixel scrolling physics
-  {
-    "karb94/neoscroll.nvim",
-    event = "WinScrolled",
-    opts = {},
-  },
-
   -- Markdown Preview
+
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
