@@ -65,6 +65,9 @@ Your plugins are organized modularly under `lua/plugins/`. Here is what each fil
 ### 🗂️ File Explorer (`lua/plugins/explorer.lua`)
 *   **[neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)**: A modern sidebar directory explorer supporting file icons, nested git status displays, and auto-focusing on your active file.
 
+### 🖥️ Terminal Manager (`lua/plugins/terminal.lua`)
+*   **[toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)**: A flexible terminal manager supporting bottom-split layouts and floating terminals.
+
 ### 🔍 Search & Navigation (`lua/plugins/telescope.lua`, `lua/plugins/navigation.lua`)
 *   **[telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)**: The industry-standard fuzzy finder for files, text searches, open buffers, and Neovim help manuals.
 *   **[harpoon](https://github.com/theprimeagen/harpoon)**: Fast workspace navigation that allows pinning files to specific slots and jumping to them instantly.
@@ -129,6 +132,15 @@ Your Leader key is configured to `<Space>`.
 | `<leader>e` | Normal | Toggle File Explorer side panel (Neo-tree) |
 | `<leader>pv` | Normal | Focus File Explorer on current active file |
 | `<leader>u` | Normal | Toggle Undotree visual panel |
+
+### 🖥️ Terminal (ToggleTerm)
+| Keymap | Mode | Action |
+| :--- | :---: | :--- |
+| `<leader>t` / `<leader>tb` | Normal | Toggle Bottom Terminal (horizontal split) |
+| `<leader>tf` | Normal | Toggle Floating Terminal |
+| `<C-\>` | Normal / Insert / Terminal | Global shortcut to toggle active terminal |
+| `jk` | Terminal | Enter Normal mode within terminal buffer |
+| `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Terminal | Switch to left/down/up/right split windows directly |
 
 ### 🛠️ Diagnostics & Code Issues (Trouble)
 | Keymap | Mode | Action |
