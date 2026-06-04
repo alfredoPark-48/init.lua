@@ -3,9 +3,9 @@ return {
   {
     "tpope/vim-fugitive",
     cmd = { "G", "Git" },
-    config = function()
-      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git Status Panel" })
-    end,
+    keys = {
+      { "<leader>gs", "<cmd>Git<cr>", desc = "Git Status Panel" },
+    },
   },
 
   -- Inline git blame lines

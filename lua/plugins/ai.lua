@@ -45,7 +45,7 @@ return {
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = {
-                  default = "", -- Tell it to run your active local download
+                  default = "qwen2.5-coder:7b", -- Tell it to run your active local download
                 },
               },
             })
