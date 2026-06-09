@@ -10,7 +10,18 @@ return {
   {
     "numToStr/Comment.nvim",
     event = "BufReadPost",
-    opts = {},
+    config = function()
+      local ft = require("Comment.ft")
+      local old_calculate = ft.calculate
+      ft.calculate = function(ctx)
+        local ok, parser = pcall(vim.treesitter.get_parser, vim.api.nvim_get_current_buf())
+        if not ok or not parser then
+          return ft.get(vim.bo.filetype, ctx.ctype)
+        end
+        return old_calculate(ctx)
+      end
+      require("Comment").setup({})
+    end,
   },
 }
       -- The new standard entry point for setting up treesitter configurations
